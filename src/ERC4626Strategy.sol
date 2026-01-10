@@ -36,6 +36,13 @@ abstract contract ERC4626Strategy is ERC4626 {
         return assetsToDeposit;
     }
 
+    /**
+     * Redeems `shares` amount of shares from the `owner` by withdrawing assets.
+     * @param shares the amount of shares to be redeemed.
+     * @param receiver the address that should receive the assets.
+     * @param owner the address of the owner of the shares.
+     * returns the amount of assets withdrawn in exchange for shares.
+     */
     function redeem(uint256 shares, address receiver, address owner) public virtual override returns (uint256 assets) {
         require(shares > 0, "Redeem amount must be greater than zero");
         require(shares <= maxRedeem(owner), "Redeem exceeds max limit");
