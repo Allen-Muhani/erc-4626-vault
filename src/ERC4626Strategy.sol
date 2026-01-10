@@ -53,7 +53,7 @@ abstract contract ERC4626Strategy is ERC4626 {
         return assetsToWithdraw;
     }
 
-    function withdraw(uint256 assets, address receier, address owner)
+    function withdraw(uint256 assets, address receiver, address owner)
         public
         virtual
         override
@@ -64,7 +64,7 @@ abstract contract ERC4626Strategy is ERC4626 {
 
         uint256 sharesToBurn = previewWithdraw(assets);
         beforeWithdraw(assets, sharesToBurn);
-        _withdraw(_msgSender(), receier, owner, assets, sharesToBurn);
+        _withdraw(_msgSender(), receiver, owner, assets, sharesToBurn);
         return sharesToBurn;
     }
 
