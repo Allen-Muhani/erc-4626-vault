@@ -4,8 +4,10 @@ pragma solidity ^0.8.13;
 
 import {ERC4626} from "@openzeppelin/contracts/token/ERC20/extensions/ERC4626.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 error InvalidFeeBasePoints();
 
@@ -18,9 +20,11 @@ abstract contract ERC4626Fees is ERC4626 {
 
     uint256 private _FEE_BASE_POUNTS;
 
-    constructor(address feeRecipient, uint256 feeBasisPoints) {
-        _FEE_RECIPIENT = feeRecipient;
-        _FEE_BASE_POUNTS = feeBasisPoints;
+    constructor(address assetAddress, uint256 basisPointsFees, string memory name, string memory symbol)
+        ERC4626(IERC20(assetAddress))
+        ERC20(name, symbol)
+    {
+        _FEE_BASE_POUNTS = basisPointsFees;
     }
 
     /**
